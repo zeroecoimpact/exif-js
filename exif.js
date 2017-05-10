@@ -928,10 +928,17 @@
     }
 
     EXIF.getData = function(img, callback) {
-        if ((self.Image && img instanceof self.Image)
+         if(!(
+             (self.Image || self.HTMLImageElement) && (
+                 (img instanceof self.Image) ||
+                 (img instanceof self.HTMLImageElement)
+             )
+         )) return false;
+        
+        /*if ((self.Image && img instanceof self.Image)
             || (self.HTMLImageElement && img instanceof self.HTMLImageElement)
             && !img.complete)
-            return false;
+            return false;*/
 
         if (!imageHasData(img)) {
             getImageData(img, callback);
